@@ -1,4 +1,4 @@
-package Entities;
+package com.e2e.certifier.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

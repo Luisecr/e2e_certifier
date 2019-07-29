@@ -1,6 +1,6 @@
-package repositories;
+package com.e2e.certifier.repositories;
 
-import Entities.Dictamen;
+import com.e2e.certifier.Entities.Dictamen;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

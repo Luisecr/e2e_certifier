@@ -1,18 +1,18 @@
-package Controllers;
+package com.e2e.certifier.Controllers;
 
-import Entities.Dictamen;
+import com.e2e.certifier.Entities.Dictamen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import repositories.DictamenRepository;
+import com.e2e.certifier.repositories.DictamenRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class DictamenController {
@@ -20,17 +20,17 @@ public class DictamenController {
     @Autowired
     DictamenRepository repository;
 
-    @GetMapping("/Dictamens")
-    public List<Dictamen> getAllDictamens() {
+    @GetMapping("/dictamenes")
+    public List<Dictamen> getAllDictamenes() {
         System.out.println("Get all Dictamens...");
 
-        List<Dictamen> Dictamens = new ArrayList<>();
-        repository.findAll().forEach(Dictamens::add);
+        List<Dictamen> Dictamenes = new ArrayList<>();
+        repository.findAll().forEach(Dictamenes::add);
 
-        return Dictamens;
+        return Dictamenes;
     }
 
-    @PostMapping("/Dictamen")
+    @PostMapping("/dictamen")
     public Dictamen postDictamen(@RequestBody Dictamen dictamen) {
 
         Dictamen _Dictamen = repository.save(new Dictamen(dictamen.getId(), dictamen.getFolio()));
@@ -46,21 +46,21 @@ public class DictamenController {
         return new ResponseEntity<>("Dictamen has been deleted!", HttpStatus.OK);
     }
 
-    @GetMapping("Dictamens/age/{age}")
-    public List<Dictamen> findByAge(@PathVariable String folio) {
+    @GetMapping("dictamenes/folio/{folio}")
+    public List<Dictamen> findByFolio(@PathVariable String folio) {
 
         List<Dictamen> Dictamenes = repository.findByFolio(folio);
         return Dictamenes;
     }
 
-    @PutMapping("/Dictamen/{id}")
+    @PutMapping("/dictamen/{id}")
     public ResponseEntity<Dictamen> updateDictamen(@PathVariable("id") long id, @RequestBody Dictamen dictamen) {
         System.out.println("Update Dictamen with ID = " + id + "...");
 
-        Optional<Dictamen> DictamenData = repository.findById(id);
+        Optional<Dictamen> dictamenData = repository.findById(id);
 
-        if (DictamenData.isPresent()) {
-            Dictamen _Dictamen = DictamenData.get();
+        if (dictamenData.isPresent()) {
+            Dictamen _Dictamen = dictamenData.get();
             _Dictamen.setFolio(dictamen.getFolio());
             return new ResponseEntity<>(repository.save(_Dictamen), HttpStatus.OK);
         } else {
